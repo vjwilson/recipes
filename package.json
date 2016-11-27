@@ -1,0 +1,35 @@
+{
+  "name": "recipes",
+  "version": "0.1.0",
+  "description": "Recipe app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha --reporter spec ./**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vjwilson/recipes.git"
+  },
+  "keywords": [
+    "recipes",
+    "api",
+    "javascript"
+  ],
+  "author": "Van J. Wilson <van.wilson1992@alumni.unc.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vjwilson/recipes/issues"
+  },
+  "homepage": "https://github.com/vjwilson/recipes#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.6",
+    "supertest": "^2.0.1"
+  }
+}
