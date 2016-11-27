@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "esw \"./**/*.js\" --color",
     "lint:watch": "npm run lint -- --watch",
-    "start": "babel-node index.js",
+    "start": "nodemon index.js --exec babel-node",
     "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec ./tests/**/*.test.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-watch": "^2.1.14",
     "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
     "sinon": "^1.17.6",
     "supertest": "^2.0.1"
   }
