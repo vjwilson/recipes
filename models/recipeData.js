@@ -1,4 +1,4 @@
-module.exports = [
+const recipeData = [
   {
     id: 1,
     name: 'Pecan Pie',
@@ -50,3 +50,5 @@ module.exports = [
     directions: 'Melt butter and saute onions in the butter until tender. Combine spinach, onions, cream, 1/2 c. crumbs, pecans, salt, nutmeg, and pepper. Mix thoroughly. Turn into buttered baking dish. Mix the 1/4 c. crumbs in the 2 Tbsp. butter and sprinkle over spinach mixture. Bake 350 for 30 minutes. Serves 6 to 8.'
   }
 ];
+
+export default recipeData;

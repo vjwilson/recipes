@@ -1,14 +1,16 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
 
-var app = express();
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var Recipe = require('../models/recipeModel')();
+import recipeModel from '../models/recipeModel';
+const Recipe = recipeModel();
 
-var recipeRouter = require('../routes/recipeRoutes')(Recipe);
+import recipeRoutes from '../routes/recipeRoutes';
+const recipeRouter = recipeRoutes(Recipe);
 
 app.use('/api/recipes', recipeRouter);
 
@@ -16,4 +18,4 @@ app.get('/', function(req, res) {
   res.send('Welcome to Recipes API');
 });
 
-module.exports = app;
+export default app;

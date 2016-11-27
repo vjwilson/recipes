@@ -1,10 +1,11 @@
-var chai = require('chai');
-var expect = chai.expect;
-var request = require('supertest');
+import chai from 'chai';
+const expect = chai.expect;
 
-var app = require('../../server');
+import app from '../../server';
 
-var agent = request.agent(app);
+// supertest doesn't work with ES6 imports without a workaround
+const request = require('supertest');
+const agent = request.agent(app);
 
 describe('Recipe CRUD test', function() {
   it('should get a list of recipes', function(done) {
@@ -25,7 +26,7 @@ describe('Recipe CRUD test', function() {
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, results) {
-        var expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions'];
+        const expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions'];
 
         expect(results.body).to.be.an('object');
         expect(results.body.id).to.equal(1);
@@ -41,7 +42,7 @@ describe('Recipe CRUD test', function() {
       .expect('Content-Type', /json/)
       .expect(404)
       .end(function(err, results) {
-        var expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions'];
+        const expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions'];
 
         expect(results.status).to.equal(404);
         expect(results.body).to.be.an('object');

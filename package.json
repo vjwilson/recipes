@@ -1,11 +1,11 @@
 {
   "name": "recipes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Recipe app",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "mocha --reporter spec ./**/*.test.js"
+    "start": "babel-node index.js",
+    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec ./tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,8 @@
   "keywords": [
     "recipes",
     "api",
-    "javascript"
+    "javascript",
+    "es2015"
   ],
   "author": "Van J. Wilson <van.wilson1992@alumni.unc.edu>",
   "license": "MIT",
@@ -27,6 +28,8 @@
     "express": "^4.14.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "sinon": "^1.17.6",

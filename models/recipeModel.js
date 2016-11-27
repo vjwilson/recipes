@@ -1,16 +1,17 @@
-var recipeModel = function() {
-  var recipes = require('./recipeData');
+import recipes from './recipeData';
 
-  var find = function() {
+const recipeModel = function() {
+
+  const find = function() {
     return recipes;
   }
 
-  var findById = function(id) {
-    var selectedRecipe = recipes.filter(function(recipe) {
-      return recipe.id == this;
-    }, id);
+  const findById = function(recipeId) {
+    const selectedRecipe = recipes.find((recipe) => {
+      return recipe.id == recipeId;
+    });
 
-    return selectedRecipe[0];
+    return selectedRecipe;
   }
 
   return {
@@ -19,4 +20,4 @@ var recipeModel = function() {
   }
 }
 
-module.exports = recipeModel;
+export default recipeModel;

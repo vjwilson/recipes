@@ -1,16 +1,16 @@
-var express = require('express');
+import express from 'express';
 
-var routes = function(Recipe) {
-  var recipeRouter = express.Router();
+const routes = function(Recipe) {
+  const recipeRouter = express.Router();
 
   recipeRouter.get('/', function (req, res) {
-    var recipes = Recipe.find();
+    const recipes = Recipe.find();
 
     res.json(recipes);
   });
 
   recipeRouter.get('/:recipeId', function (req, res) {
-    var recipe = Recipe.findById(req.params.recipeId);
+    const recipe = Recipe.findById(req.params.recipeId);
     if (recipe) {
       res.json(recipe);
     } else {
@@ -22,4 +22,4 @@ var routes = function(Recipe) {
   return recipeRouter;
 }
 
-module.exports = routes;
+export default routes;
