@@ -1,23 +1,17 @@
 import express from 'express';
+import recipeControllerFactory from '../controllers/recipeController';
 
 const routes = function(Recipe) {
   const recipeRouter = express.Router();
+  const recipeController = recipeControllerFactory(Recipe);
 
-  recipeRouter.get('/', function (req, res) {
-    const recipes = Recipe.find();
+  recipeRouter.route('/')
+    .get(recipeController.get);
 
-    res.json(recipes);
-  });
+  recipeRouter.use('/:recipeId', recipeController.findRecipe);
 
-  recipeRouter.get('/:recipeId', function (req, res) {
-    const recipe = Recipe.findById(req.params.recipeId);
-    if (recipe) {
-      res.json(recipe);
-    } else {
-      res.status(404);
-      res.send({ error: 'No recipe found '});
-    }
-  });
+  recipeRouter.route('/:recipeId')
+    .get(recipeController.getById);
 
   return recipeRouter;
 }
