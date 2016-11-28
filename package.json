@@ -7,7 +7,7 @@
     "lint": "esw \"./**/*.js\" --color",
     "lint:watch": "npm run lint -- --watch",
     "start": "nodemon index.js --exec babel-node",
-    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./controllers/**/*.test.js\" \"./tests/**/*.test.js\""
+    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\" \"./tests/**/*.test.js\""
   },
   "repository": {
     "type": "git",

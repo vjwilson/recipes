@@ -6,10 +6,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-import recipeModel from '../models/recipeModel';
+import recipeModel from './models/recipeModel';
 const Recipe = recipeModel();
 
-import recipeRoutes from '../routes/recipeRoutes';
+import recipeRoutes from './routes/recipeRoutes';
 const recipeRouter = recipeRoutes(Recipe);
 
 app.use('/api/recipes', recipeRouter);
