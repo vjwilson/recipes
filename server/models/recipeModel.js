@@ -42,6 +42,21 @@ const recipeModel = function(connectionPool) {
     });
   };
 
+  const update = function(recipe, cb) {
+    const updatedRecipe = Object.assign({}, recipe);
+    updatedRecipe.ingredients = JSON.stringify(updatedRecipe.ingredients);
+
+    pool.query('UPDATE recipes SET name=$1, author=$2, ingredients=$3, directions=$4 WHERE id=$5', [updatedRecipe.name, updatedRecipe.author, updatedRecipe.ingredients, updatedRecipe.directions, updatedRecipe.id], function(err, results) {
+      if (err) {
+        cb(err, null);
+      } else if (results.rowCount) {
+        cb(null, results.rowCount);
+      } else {
+        cb(null, null);
+      }
+    });
+  };
+
   const remove = function(recipeId, cb) {
     pool.query('DELETE FROM recipes WHERE id=$1', [recipeId], function(err, results) {
       if (err) {
@@ -58,6 +73,7 @@ const recipeModel = function(connectionPool) {
     find: find,
     save: save,
     findById: findById,
+    update: update,
     remove: remove
   };
 };

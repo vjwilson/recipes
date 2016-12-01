@@ -40,6 +40,35 @@ const recipeController = function(Recipe) {
     res.json(req.recipe);
   };
 
+  const update = function(req, res) {
+    delete req.body.id; // guard against getting ID out-of-sync
+
+    req.recipe = Object.assign(req.recipe, req.body);
+
+    Recipe.update(req.recipe, function(err) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(req.recipe);
+      }
+    });
+  };
+
+  const replace = function(req, res) {
+    req.recipe.name = req.body.name;
+    req.recipe.author = req.body.author;
+    req.recipe.ingredients = req.body.ingredients;
+    req.recipe.directions = req.body.directions;
+
+    Recipe.update(req.recipe, function(err) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.json(req.recipe);
+      }
+    });
+  };
+
   const remove = function(req, res) {
     if (req.recipe && req.recipe.id == req.params.recipeId) {
       Recipe.remove(req.params.recipeId, function(err) {
@@ -62,6 +91,8 @@ const recipeController = function(Recipe) {
     post: post,
     get: get,
     getById: getById,
+    update: update,
+    replace: replace,
     remove: remove
   };
 };

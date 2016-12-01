@@ -72,7 +72,6 @@ describe('Recipe Controller', function() {
       const next = sinon.spy();
 
       const recipeController = recipeControllerFactory(Recipe);
-
       recipeController.findRecipe(req, res, next);
 
       expect(req.recipe).to.eql({ id: recipeId });
@@ -99,10 +98,95 @@ describe('Recipe Controller', function() {
       };
 
       const recipeController = recipeControllerFactory(Recipe);
-
       recipeController.getById(req, res);
 
       expect(res.json.calledWith(req.recipe)).to.equal(true);
+    });
+
+    it('should update a recipe object', function() {
+      // setup
+      const recipeId = 17;
+
+      const originalRecipe = {
+        id: recipeId,
+        name: 'Hash',
+        author: 'Mickey Mouse',
+        ingredients: [ 'salt', 'pepper', 'milk'],
+        description: 'Blah blah blah'
+      };
+
+      const Recipe = {
+        update: function(id, cb) {
+          cb(null, { id: id });
+        }
+      };
+      const req = {
+        body: {
+          id: recipeId,
+          author: 'Donald Duck'
+        },
+        params: {
+          recipeId: recipeId
+        },
+        recipe: originalRecipe
+      };
+      const res = {
+        json: sinon.spy()
+      };
+
+      const expectedRecipe = Object.assign({}, originalRecipe);
+      expectedRecipe.author = req.body.author;
+
+      // act
+      const recipeController = recipeControllerFactory(Recipe);
+      recipeController.update(req, res);
+
+      // assert
+      sinon.assert.calledWith(res.json, expectedRecipe);
+    });
+
+    it('should replace a recipe object', function() {
+
+      const recipeId = 17;
+      // setup
+      const originalRecipe = {
+        id: recipeId,
+        name: 'Hash',
+        author: 'Mickey Mouse',
+        ingredients: [ 'salt', 'pepper', 'milk'],
+        directions: 'Blah blah blah'
+      };
+
+      const Recipe = {
+        update: function(id, cb) {
+          cb(null, { id: id });
+        }
+      };
+      const req = {
+        body: {
+          id: recipeId,
+          name: 'Stew',
+          author: 'Donald Duck',
+          ingredients: ['broth', 'carrots'],
+          directions: 'Etc. etc. etc.'
+        },
+        params: {
+          recipeId: recipeId
+        },
+        recipe: originalRecipe
+      };
+      const res = {
+        json: sinon.spy()
+      };
+
+      const expectedRecipe = Object.assign({}, req.body);
+
+      // act
+      const recipeController = recipeControllerFactory(Recipe);
+      recipeController.replace(req, res);
+
+      // assert
+      sinon.assert.calledWith(res.json, expectedRecipe);
     });
   });
 
@@ -129,7 +213,6 @@ describe('Recipe Controller', function() {
       };
 
       const recipeController = recipeControllerFactory(Recipe);
-
       recipeController.remove(req, res);
 
       expect(res.status.calledWith(204)).to.equal(true);

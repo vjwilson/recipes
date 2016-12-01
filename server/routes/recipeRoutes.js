@@ -13,6 +13,8 @@ const routes = function(Recipe) {
 
   recipeRouter.route('/:recipeId')
     .get(recipeController.getById)
+    .patch(recipeController.update)
+    .put(recipeController.replace)
     .delete(recipeController.remove);
 
   return recipeRouter;
