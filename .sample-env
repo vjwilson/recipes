@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# POSTGRESQL database settings
+export RECIPE_DATABASE_SERVER='your_hostname'
+export RECIPE_DATABASE_DATABASE='your_database_name'
+export RECIPE_DATABASE_USER='your_username'
+export RECIPE_DATABASE_PASSWORD='your_password'

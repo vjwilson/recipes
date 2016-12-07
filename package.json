@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "esw \"./**/*.js\" --color",
     "lint:watch": "npm run lint -- --watch",
-    "start": "nodemon index.js --exec babel-node",
+    "start": "nodemon server/index.js --exec babel-node",
+    "build": "babel server -d dist",
+    "serve": "node dist/index.js",
     "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\" \"./tests/**/*.test.js\""
   },
   "repository": {
