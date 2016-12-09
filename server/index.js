@@ -1,10 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+var cors = require('cors');
 import { Pool } from 'pg';
 
 const port = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

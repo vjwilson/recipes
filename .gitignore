@@ -40,3 +40,4 @@ jspm_packages
 
 seed.sql
 .env
+.DS_Store
