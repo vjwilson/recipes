@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 var cors = require('cors');
 import { Pool } from 'pg';
+import passport from 'passport';
 
 const port = process.env.PORT || 5000;
 
@@ -25,17 +26,22 @@ if (process.env.NODE_ENV === 'production') {
 
 const pool = new Pool(postgresConnectionOptions);
 
+app.use(passport.initialize());
+
+import userModel from './models/userModel';
+const User = userModel(pool);
+
+import passportConfig from './config/passport';
+passportConfig(passport, User);
+
+import authRoutes from './routes/authRoutes';
+const authRouter = authRoutes(User);
+
 import recipeModel from './models/recipeModel';
 const Recipe = recipeModel(pool);
 
 import recipeRoutes from './routes/recipeRoutes';
 const recipeRouter = recipeRoutes(Recipe);
-
-import userModel from './models/userModel';
-const User = userModel(pool);
-
-import authRoutes from './routes/authRoutes';
-const authRouter = authRoutes(User);
 
 app.use('/api/recipes', recipeRouter);
 app.use('/api/auth', authRouter);

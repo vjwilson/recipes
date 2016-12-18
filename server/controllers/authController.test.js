@@ -48,6 +48,11 @@ describe('Auth Controller', function() {
           cb(null, true);
         }
       };
+      const jwt = {
+        sign: function(user, secret) {
+          return `${secret}supercalifragilistic`;
+        }
+      };
       const req = {
         body: {
           email: 'realuser@example.com',
@@ -60,7 +65,7 @@ describe('Auth Controller', function() {
       };
 
       // act
-      const authController = authControllerFactory(User);
+      const authController = authControllerFactory(User, jwt);
       authController.signIn(req, res);
 
       // assert

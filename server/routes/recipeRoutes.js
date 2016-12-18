@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import recipeControllerFactory from '../controllers/recipeController';
 
 const routes = function(Recipe) {
@@ -7,7 +8,7 @@ const routes = function(Recipe) {
 
   recipeRouter.route('/')
     .get(recipeController.get)
-    .post(recipeController.post);
+    .post(passport.authenticate('jwt', { session: false }), recipeController.post);
 
   recipeRouter.use('/:recipeId', recipeController.findRecipe);
 

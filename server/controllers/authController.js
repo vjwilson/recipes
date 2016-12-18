@@ -1,4 +1,4 @@
-const authController = function(User) {
+const authController = function(User, jwt) {
   const signIn = function(req, res) {
     const errors = [];
 
@@ -16,8 +16,12 @@ const authController = function(User) {
             errors.push('Authentication failed. Email and password did not match.' );
             sendErrorResponse(res, 401, errors);
           } else {
+            const token = jwt.sign(user, process.env.PASSPORT_SECRET, {
+              expiresIn: 10080 // in seconds
+            });
+
             res.status(201);
-            res.json({ token: '0u812'});
+            res.json({ token: `JWT ${token}` });
           }
         });
       } else {
