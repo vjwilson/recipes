@@ -9,6 +9,9 @@ describe('Auth Controller', function() {
       const User = {
         findOne: function(req, cb) {
           cb(null, [{}]);
+        },
+        comparePassword: function(plainPassword, hashedPassword, cb) {
+          cb('error');
         }
       };
       const req = {
@@ -40,6 +43,9 @@ describe('Auth Controller', function() {
             email: 'realuser@example.com',
             password: 'goodPassword'
           });
+        },
+        comparePassword: function(plainPassword, hashedPassword, cb) {
+          cb(null, true);
         }
       };
       const req = {
@@ -58,8 +64,10 @@ describe('Auth Controller', function() {
       authController.signIn(req, res);
 
       // assert
-      const success = res.json.getCall(0).args[0].success;
-      expect(success).to.be.true;
+      expect(res.status.calledWith(201)).to.equal(true);
+      expect(res.json.called).to.equal(true);
+      const token = res.json.getCall(0).args[0].token;
+      expect(token).to.be.a('string');
     });
   });
 
@@ -214,9 +222,6 @@ describe('Auth Controller', function() {
       authController.register(req, res);
 
       // assert
-      // expect(User.save.called).to.be.true;
-      const success = res.json.getCall(0).args[0].success;
-      expect(success).to.be.true;
       const returnedUser = res.json.getCall(0).args[0].user;
       expect(returnedUser.id).to.equal(999);
     });

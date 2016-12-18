@@ -10,8 +10,16 @@ const authController = function(User) {
         sendErrorResponse(res, 500, errors);
       }
 
-      if (user && user.password === req.body.password) {
-        res.json({ success: true, token: '0u812'});
+      if (user) {
+        User.comparePassword(req.body.password, user.password, function(err, hashResponse) {
+          if (err || !hashResponse) {
+            errors.push('Authentication failed. Email and password did not match.' );
+            sendErrorResponse(res, 401, errors);
+          } else {
+            res.status(201);
+            res.json({ token: '0u812'});
+          }
+        });
       } else {
         errors.push('Authentication failed. Email and password did not match.' );
         sendErrorResponse(res, 401, errors);
@@ -42,7 +50,7 @@ const authController = function(User) {
           errors.push(err.detail);
           sendErrorResponse(res, 500, errors);
         } else if (user && user.id) {
-          res.json({ success: true, user: user });
+          res.json({ user: user });
         } else {
           errors.push('Failed to register user. Please check your request and try again.');
           sendErrorResponse(res, 500, errors);
