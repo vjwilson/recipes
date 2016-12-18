@@ -31,7 +31,14 @@ const Recipe = recipeModel(pool);
 import recipeRoutes from './routes/recipeRoutes';
 const recipeRouter = recipeRoutes(Recipe);
 
+import userModel from './models/userModel';
+const User = userModel(pool);
+
+import authRoutes from './routes/authRoutes';
+const authRouter = authRoutes(User);
+
 app.use('/api/recipes', recipeRouter);
+app.use('/api/authenticate', authRouter);
 
 app.get('/', function(req, res) {
   res.send('Welcome to Recipes API');
