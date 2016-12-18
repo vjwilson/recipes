@@ -8,6 +8,9 @@ const routes = function(User) {
   authRouter.route('/signin')
     .post(authController.signIn);
 
+  authRouter.route('/register')
+    .post(authController.register);
+
   return authRouter;
 };
 
