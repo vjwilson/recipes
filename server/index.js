@@ -38,7 +38,7 @@ import authRoutes from './routes/authRoutes';
 const authRouter = authRoutes(User);
 
 app.use('/api/recipes', recipeRouter);
-app.use('/api/authenticate', authRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', function(req, res) {
   res.send('Welcome to Recipes API');
