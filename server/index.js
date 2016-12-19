@@ -3,11 +3,15 @@ import bodyParser from 'body-parser';
 var cors = require('cors');
 import { Pool } from 'pg';
 import passport from 'passport';
+import morgan from 'morgan';
 
 const port = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
+
+// Log requests to console
+app.use(morgan('combined'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
