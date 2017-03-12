@@ -14,9 +14,9 @@ const routes = function(Recipe) {
 
   recipeRouter.route('/:recipeId')
     .get(recipeController.getById)
-    .patch(recipeController.update)
-    .put(recipeController.replace)
-    .delete(recipeController.remove);
+    .patch(passport.authenticate('jwt', { session: false }), recipeController.update)
+    .put(passport.authenticate('jwt', { session: false }), recipeController.replace)
+    .delete(passport.authenticate('jwt', { session: false }), recipeController.remove);
 
   return recipeRouter;
 };
