@@ -13,8 +13,8 @@
     "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\" \"./tests/**/*.test.js\""
   },
   "engines": {
-    "node": "6.1.0",
-    "npm": "3.10.8"
+    "node": "6.11.1",
+    "npm": "3.10.10"
   },
   "repository": {
     "type": "git",
