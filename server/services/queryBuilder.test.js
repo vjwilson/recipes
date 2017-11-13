@@ -20,7 +20,7 @@ describe('queryBuilder service', function() {
   });
 
   it('should return a single where clause, and matching param array when one allowed param is in the query params', function() {
-    const name = 'Cindy Lou Who';
+    const name = 'Lou';
     const requestedParams ={
       name: name,
       baz: 'snafu'
@@ -34,6 +34,24 @@ describe('queryBuilder service', function() {
 
     expect(processedQuery.whereClause).to.equal('name=$1');
     expect(processedQuery.paramList).to.eql([name]);
+  });
+
+  it('should return a ILIKE where clause, and matching param array when fuzzy flag is set', function() {
+    const name = 'Cindy Lou Who';
+    const requestedParams ={
+      name: name,
+      baz: 'snafu'
+    };
+    const allowedParams = [
+      'name',
+      'email'
+    ];
+    const fuzzyMatch = true;
+
+    const processedQuery = queryBuilder(requestedParams, allowedParams, fuzzyMatch);
+
+    expect(processedQuery.whereClause).to.equal('name ILIKE $1');
+    expect(processedQuery.paramList).to.eql([`%${name}%`]);
   });
 
   it('should return a multi-part where clause, and matching param array when more than one allowed param is in the query params', function() {

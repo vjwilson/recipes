@@ -6,7 +6,7 @@ describe('Recipe Controller', function() {
   describe('get test', function() {
     it('should return an array from recipes', function() {
       const Recipe = {
-        find: function(cb) {
+        find: function(queryParams, cb) {
           cb(null, [{}]);
         }
       };

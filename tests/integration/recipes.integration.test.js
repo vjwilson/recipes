@@ -26,7 +26,7 @@ describe('Recipe CRUD test', function() {
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, results) {
-        const expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions'];
+        const expectedKeys = ['id', 'name', 'author', 'ingredients', 'directions', 'created_at', 'modified_at'];
 
         expect(results.body).to.be.an('object');
         expect(results.body.id).to.equal(1);

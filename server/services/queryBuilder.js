@@ -1,4 +1,4 @@
-export default function(searchParams, allowedParams) {
+export default function(searchParams, allowedParams, fuzzyMatch = false) {
 
   const allowedKeys = Object.keys(searchParams).filter(key => {
     return allowedParams.includes(key);
@@ -6,10 +6,14 @@ export default function(searchParams, allowedParams) {
 
   const whereClauses = [];
   const paramList = [];
+  const operator = (fuzzyMatch) ? ' ILIKE ' : '=';
+
   allowedKeys.forEach((key, index) => {
     if (searchParams[key]) {
-      whereClauses.push(`${key}=$${index + 1}`);
-      paramList.push(searchParams[key]);
+      whereClauses.push(`${key}${operator}$${index + 1}`);
+
+      const value = (fuzzyMatch) ? `%${searchParams[key]}%` : searchParams[key];
+      paramList.push(value);
     }
   });
   const combinedWhereClause = whereClauses.join('&');

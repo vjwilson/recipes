@@ -1,10 +1,28 @@
-// import recipes from './recipeData';
+import queryBuilder from '../services/queryBuilder';
 
 const recipeModel = function(connectionPool) {
   const pool = connectionPool;
 
-  const find = function(cb) {
-    pool.query('SELECT * FROM recipes', function(err, results) {
+  const find = function(queryParams, cb) {
+    let whereClause;
+    let paramList;
+
+    if (queryParams &&
+        Object.keys(queryParams) &&
+        Object.keys(queryParams).length) {
+      const allowedParams = [
+        'name',
+        'author'
+      ];
+      const fuzzyMatch = true;
+      ({ whereClause, paramList } = queryBuilder(queryParams, allowedParams, fuzzyMatch));
+    } else {
+      whereClause = '1=$1';
+      paramList = [1];
+    }
+
+    const query = `SELECT * FROM recipes WHERE ${whereClause} ORDER BY id`;
+    pool.query(query, paramList, function(err, results) {
       if (err) {
         cb(err, null);
       } else {

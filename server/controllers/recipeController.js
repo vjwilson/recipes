@@ -1,6 +1,7 @@
 const recipeController = function(Recipe) {
   const get = function(req, res) {
-    Recipe.find(function(err, result) {
+    const queryParams = req.query;
+    Recipe.find(queryParams, function(err, result) {
       if (err) {
         res.status(500);
         res.send({ error: 'Database error'});
