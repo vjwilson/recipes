@@ -47,7 +47,14 @@ const Recipe = recipeModel(pool);
 import recipeRoutes from './routes/recipeRoutes';
 const recipeRouter = recipeRoutes(Recipe);
 
+import categoryModel from './models/categoryModel';
+const Category = categoryModel(pool);
+
+import categoryRoutes from './routes/categoryRoutes';
+const categoryRouter = categoryRoutes(Category);
+
 app.use('/api/recipes', recipeRouter);
+app.use('/api/categories', categoryRouter);
 app.use('/api/auth', authRouter);
 
 app.get('/', function(req, res) {
