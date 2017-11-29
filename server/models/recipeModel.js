@@ -21,7 +21,7 @@ const recipeModel = function(connectionPool) {
       paramList = [1];
     }
 
-    const query = `SELECT * FROM recipes WHERE ${whereClause} ORDER BY id`;
+    const query = `SELECT r.*, array_remove(array_agg(rc.category_id), NULL) AS category_ids FROM recipes r LEFT OUTER JOIN recipes_categories rc ON r.id=rc.recipe_id WHERE ${whereClause} GROUP BY r.id ORDER BY r.id`;
     pool.query(query, paramList, function(err, results) {
       if (err) {
         cb(err, null);
