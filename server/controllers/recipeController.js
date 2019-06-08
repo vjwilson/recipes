@@ -3,6 +3,8 @@ const recipeController = function(Recipe) {
     const queryParams = req.query;
     Recipe.find(queryParams, function(err, result) {
       if (err) {
+        console.log(`Error in Recipe.find: ${err}`);
+
         res.status(500);
         res.send({ error: 'Database error'});
       } else {
@@ -13,6 +15,8 @@ const recipeController = function(Recipe) {
   const post = function(req, res) {
     Recipe.save(req.body, function(err, result) {
       if (err) {
+        console.log(`Error in Recipe.save: ${err}`);
+
         res.status(500);
         res.send({ error: 'Database error'});
       } else {
@@ -25,6 +29,8 @@ const recipeController = function(Recipe) {
   const findRecipe = function(req, res, next) {
     Recipe.findById(req.params.recipeId, function(err, result) {
       if (err) {
+        console.log(`Error in Recipe.findById: ${err}`);
+
         res.status(500);
         res.send({ error: 'Database error'});
       } else if (result) {
@@ -32,7 +38,7 @@ const recipeController = function(Recipe) {
         next();
       } else {
         res.status(404);
-        res.send({ error: 'No recipe found '});
+        res.send({ error: 'No recipe found'});
       }
     });
   };

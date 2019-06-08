@@ -6,6 +6,8 @@ const authController = function(User, jwt) {
       email: req.body.email
     }, function(err, user) {
       if (err) {
+        console.log(`Error in User.findOne: ${err}`);
+
         errors.push(err.detail);
         sendErrorResponse(res, 500, errors);
       }
@@ -13,6 +15,8 @@ const authController = function(User, jwt) {
       if (user) {
         User.comparePassword(req.body.password, user.password, function(err, hashResponse) {
           if (err || !hashResponse) {
+            console.log(`Error in comparing passwords: ${err}`);
+
             errors.push('Authentication failed. Email and password did not match.' );
             sendErrorResponse(res, 401, errors);
           } else {
@@ -25,6 +29,8 @@ const authController = function(User, jwt) {
           }
         });
       } else {
+        console.log(`Error in finding User: user with that email not found`);
+
         errors.push('Authentication failed. Email and password did not match.' );
         sendErrorResponse(res, 401, errors);
       }
