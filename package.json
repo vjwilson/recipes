@@ -10,7 +10,8 @@
     "postinstall": "npm run build",
     "start": "nodemon server/index.js --exec babel-node",
     "serve": "node dist/index.js",
-    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\" \"./tests/**/*.test.js\""
+    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\"",
+    "test:integration": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./tests/**/*.test.js\""
   },
   "engines": {
     "node": "8.9.x",
