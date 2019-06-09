@@ -20,7 +20,10 @@ const authController = function(User, jwt) {
             errors.push('Authentication failed. Email and password did not match.' );
             sendErrorResponse(res, 401, errors);
           } else {
-            const token = jwt.sign(user, process.env.PASSPORT_SECRET, {
+            // simplify so passport can use user object as JSON
+            const userObj = JSON.parse(JSON.stringify(user));
+
+            const token = jwt.sign(userObj, process.env.PASSPORT_SECRET, {
               expiresIn: 10080 // in seconds
             });
 

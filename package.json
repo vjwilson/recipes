@@ -10,8 +10,8 @@
     "postinstall": "npm run build",
     "start": "nodemon server/index.js --exec babel-node",
     "serve": "node dist/index.js",
-    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./server/**/*.test.js\"",
-    "test:integration": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./tests/**/*.test.js\""
+    "test": "mocha --require babel-polyfill --require babel-core/register --reporter spec \"./server/**/*.test.js\"",
+    "test:integration": "mocha --require babel-polyfill --require babel-core/register --reporter spec \"./tests/**/*.test.js\""
   },
   "engines": {
     "node": "10.11.x",
@@ -42,17 +42,17 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
+    "passport-jwt": "^4.0.0",
     "pg": "^6.1.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.11.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-watch": "^2.1.14",
-    "mocha": "^3.2.0",
+    "eslint-watch": "^5.1.2",
+    "mocha": "^6.1.4",
     "nodemon": "^1.11.0",
     "sinon": "^1.17.6",
-    "supertest": "^2.0.1"
+    "supertest": "^4.0.2"
   }
 }
