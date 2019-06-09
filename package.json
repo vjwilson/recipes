@@ -14,8 +14,8 @@
     "test:integration": "mocha --require babel-polyfill --compilers js:babel-register --reporter spec \"./tests/**/*.test.js\""
   },
   "engines": {
-    "node": "8.9.x",
-    "npm": "5.5.x"
+    "node": "10.11.x",
+    "npm": "6.4.x"
   },
   "repository": {
     "type": "git",
