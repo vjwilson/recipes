@@ -4,6 +4,7 @@ var cors = require('cors');
 import { Pool } from 'pg';
 import passport from 'passport';
 import morgan from 'morgan';
+import compression from 'compression';
 
 const port = process.env.PORT || 5000;
 
@@ -15,6 +16,9 @@ app.use(morgan('combined'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// gzip responses for better performance
+app.use(compression());
 
 const postgresConnectionOptions = {
   user: process.env.RECIPE_DATABASE_USER,
